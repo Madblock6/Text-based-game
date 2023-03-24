@@ -9,6 +9,8 @@ def main():
 	decision5 = []
 	decision6 = []
 	decision7 = []
+	decision8 = []
+	guard2 = 10
 	inventory = []
 	Cafeteriadone = 0
 	Weaponrydone = 0
@@ -66,6 +68,8 @@ def main():
 								print(f"You have nothing else to do in the cafeteria so you exit back to the hallway you were in.")
 							elif decision4 == "talk":
 								print(f'You go up to the man and he says:\n"You look lost, if you want to get out of here try to find an elevator key in the janitors closet."')
+							else:
+								print(f"unkown request")
 				elif Cafeteriadone == 1 and Weaponrydone == 0:
 					print(f'You exit the cafeteria and there is another room to the right with a sign that says weaponry.\n')
 					decision6 = input(f'Type "weaponry" to enter the weaponry.\n')
@@ -99,8 +103,10 @@ def main():
 							inv = ''
 							for thing in inventory:
 								inv += f"{thing}\n"
+						else:
+							print(f"unkown request")
 				elif Cafeteriadone == 1 and Weaponrydone == 1:
-					print(f"You have finished exploring all the rooms on the first floor.\nWhen you look into the hallway you see the security guard from earlier\nHe has a blaster drawn and he see's you and takes a shot\nWith a loud bang a blaster bolt hits you in the arm doing 4 points of damage\nYour health is now: {health-4}")
+					print(f"You have finished exploring all the rooms on the first floor.\nWhen you look into the hallway you see the security guard from earlier\nHe has a blaster drawn, he see's you and takes a shot\nWith a loud bang a blaster bolt hits you in the arm doing 4 points of damage\nYour health is now: {health-4}")
 					decision7 = input(f'You take a look at the guard and point your gun\nType "shoot" to shoot at the guard\n')
 					if decision7 == "shoot":
 						print(f"You blast the security guard with your gun and he falls on the ground unconscious and leaves a path strait to the elevator.")
@@ -165,6 +171,14 @@ def main():
 								print(f"You have nothing else to do in the cafeteria so you exit back to the hallway you were in.")
 							elif decision4 == "talk":
 								print(f'You go up to the man and he says:\n"You look lost, if you want to get out of here try to find an elevator key in the janitors closet."')
+							else:
+								print(f"unkown request")
+					else:
+						print(f"unkown request")
+			while decision8 != "elevator":
+				print(f'You step out onto the second floor of the ship and emediantly there are two guards at the doorway who grab you.\nOne of the guards says "where do you think youre going bucko?"\nAs they are carying you down a hall one of them slips on a banna peel somebody must have left on the floor.\nYou break free from the guards grip.')
+				decision8 = input(f'You draw your blaster and look at both of them type "1" to shoot the guard on the ground\nType "2" to shoot at the guard standing up.')
+				while guard2 != 0:
 			break
 		if home == "leaderboard":
 			print(f"\tLeaderboard:\nTop score:{score}\nLowest score:{scorelow}\n")
