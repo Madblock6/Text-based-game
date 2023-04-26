@@ -178,16 +178,28 @@ def main():
 						print(f"unkown request")
 			decision = ''
 			while decision != "elevator":
-				print(f'You step out onto the second floor of the ship and emediantly there are two guards at the doorway who grab you.\nOne of the guards says "where do you think youre going bucko?"\nAs they are carying you down a hall one of them slips on a banna peel somebody must have left on the floor.\nYou break free from the guards grip.')
-				decision = input(f'You draw your blaster and look at the guard standing up.\nType "shoot" to shoot at the guard standing up.')
+				print(f'You step out onto the second floor of the ship and immediantly there are two guards at the doorway who grab you.\nOne of the guards says "where do you think youre going bucko?"\nAs they are carying you down a hall one of them slips on a banna peel somebody must have left on the floor.\nYou break free from the guards grip.')
+				decision = input(f'You draw your blaster and look at the guard standing up.\nType "shoot" to shoot at the guard standing up.\n')
 				while guard2 != 0:
+					damage = 0
 					if decision == 'shoot':
 						if 'nebula shotgun' in inventory:
 							for i in range(0, 3, 1):
 								shot = random.randint(1, 4)
 								damage += shot
-					print(f"You pull out your nebula shotgun and do {damage} points of damage to the guard")
+							print(f"You pull out your nebula shotgun and do {damage} points of damage to the guard")
+						elif 'quantum rifle' in inventory:
+							for i in range(0, 1, 1):
+								shot = random.randint(1, 12)
+								damage += shot
+							print(f"You pull out your quantum rifle and do {damage} points of damage to the guard")
+						elif 'star blaster' in inventory:
+							for i in range(0, 2, 1):
+								shot = random.randint(1, 6)
+								damage += shot
+							print(f"You pull out your star blaster and do {damage} points of damage to the guard")
 					guard2 -= damage
+				print(f"Now that both guards are on the ground you can make a break for it back onto the elevator\nYou see the elevator door closing as you run towards it\nBefore you can get into the elevator the doors close and three more guards run up behind you.")
 
 			break
 		if home == "leaderboard":
