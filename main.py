@@ -180,7 +180,7 @@ def main():
 			while decision != "elevator":
 				print(f'You step out onto the second floor of the ship and immediantly there are two guards at the doorway who grab you.\nOne of the guards says "where do you think youre going bucko?"\nAs they are carying you down a hall one of them slips on a banna peel somebody must have left on the floor.\nYou break free from the guards grip.')
 				decision = input(f'You draw your blaster and look at the guard standing up.\nType "shoot" to shoot at the guard standing up.\n')
-				while guard2 != 0:
+				while guard2 >= 0:
 					damage = 0
 					if decision == 'shoot':
 						if 'nebula shotgun' in inventory:
@@ -200,7 +200,29 @@ def main():
 							print(f"You pull out your star blaster and do {damage} points of damage to the guard")
 					guard2 -= damage
 				print(f"Now that both guards are on the ground you can make a break for it back onto the elevator\nYou see the elevator door closing as you run towards it\nBefore you can get into the elevator the doors close and three more guards run up behind you.")
-
+				print(f'This time the guards wont let you go so easily\nBefore you can do anything a guard comes up behind you and knocks you out.\n\n\n\n')
+				decision = input(f'You wake up in a new cell on a different floor except this time the door is locked.\nType "open" to try and open the door\nType "shoot" to try and shoot the door open\n')
+				if decision == "open":
+					print(f"You manage to get the door open despite it being locked and enter a long hallway")
+				elif decision == "shoot":
+					print(f'You blast open the door with a loud "bang" and for a second\nYou think you are fine but then 5 guards come running to your door and unload on you\n')
+					Ratta_shooty = random.randint(1,6)
+					total = Ratta_shooty * 5
+					health = health - total
+					if health <= 0:
+						print(f'The guards do {total} points of damage killing you')
+						print("					YOU DIED")
+						print("				Better luck next time!")
+						break
+					else:
+						print(f"The guards do {total} points of damage of damage getting your health down to {health}\nSomehow they dont kill you and you unload with your gun killing each guard\ncongrats you arent dead YET")
+				decision = input(f'When you enter the hall you have 3 options go strait into a room\nGo right into the spaceships bridge\nOr go left into large training area\nType "left" "right" or "strait"\n')
+				if decision == "strait":
+					print(f"You enter the room strait ahead of you.")
+				elif decision == "right":
+					print(f"You enter the spaceships bridge")
+				elif decision == "left":
+					print(f"You enter the training are")
 			break
 		if home == "leaderboard":
 			print(f"\tLeaderboard:\nTop score:{score}\nLowest score:{scorelow}\n")
