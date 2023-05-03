@@ -4,13 +4,6 @@ def main():
 	scorelow = 0
 	choice1 = []
 	decision = []
-	decision = []
-	decision = []
-	decision = []
-	decision = []
-	decision = []
-	decision = []
-	decision = []
 	guard2 = 5
 	inventory = []
 	Cafeteriadone = 0
@@ -100,14 +93,16 @@ def main():
 							print(f"You take the nebula shotgun")
 							inventory += ["nebula shotgun"]
 							print(f"Your inventory is now:")
-							print(inv)
+							print()
 							inv = ''
 							for thing in inventory:
 								inv += f"{thing}\n"
+							print(inv)
 						else:
 							print(f"unkown request")
 				elif Cafeteriadone == 1 and Weaponrydone == 1:
 					print(f"You have finished exploring all the rooms on the first floor.\nWhen you look into the hallway you see the security guard from earlier\nHe has a blaster drawn, he see's you and takes a shot\nWith a loud bang a blaster bolt hits you in the arm doing 4 points of damage\nYour health is now: {health-4}")
+					health = health - 4
 					decision = input(f'You take a look at the guard and point your gun\nType "shoot" to shoot at the guard\n')
 					if decision == "shoot":
 						print(f"You blast the security guard with your gun and he falls on the ground unconscious and leaves a path strait to the elevator.")
@@ -216,14 +211,81 @@ def main():
 						break
 					else:
 						print(f"The guards do {total} points of damage of damage getting your health down to {health}\nSomehow they dont kill you and you unload with your gun killing each guard\ncongrats you arent dead YET")
-				decision = input(f'When you enter the hall you have 3 options go strait into a room\nGo right into the spaceships bridge\nOr go left into large training area\nType "left" "right" or "strait"\n')
+				decision = input(f'When you enter the hall you have 3 options\nGo strait into a room\nGo right into the spaceships bridge\nOr go left into large training area\nType "left" "right" or "strait"\n')
 				if decision == "strait":
-					print(f"You enter the room strait ahead of you.")
+					print(f"You enter the room strait ahead of you\nIn this room there is a massive screen that apears to be turned off\nThe door slams shut behind you and the screen turns on")
+					decision = input(f'The screen turns on with a loud voice to greet you\nIt says "Hello player welcome to space trivia, would you like to play?"\nType "yes" to play or "no" to not play\n')
+					while decision != "yes":
+						decision = input(f"Are you sure?\nThere will be consequences if you say no again!\n")
+						if decision == "yes":
+							continue
+						else:
+							print(f'This time a gun comes out of the wall and shoots you doing 3 points of damge\nThe voice says "sorry not sorry"')
+							health = health -3
+							if health <= 0:
+								print(f'The computer shot you doing 3 points of damage killing you')
+								print("					YOU DIED")
+								print("				Better luck next time!")
+								break
+					print(f'The computer says "Im so glad you decided to play"\n"Lets get started"')
+					decision = input(f'"There will be 3 trivia questions each time you get one wrong I will punish you"\n"First question: How many moons does earth have?"\n')
+					if decision == "1":
+						print(f'"Correct!"')
+					else:
+						print(f'"Wrong!"\nA gun comes out of the wall and shoots you doing 3 points of damage')
+						health = health -3
+						if health <= 0:
+							print(f'The computer shot you doing 3 points of damage killing you')
+							print("					YOU DIED")
+							print("				Better luck next time!")
+							break
+					decision = input(f'"Second question: How many planets are there in our solar system?"\n')
+					if decision == "8":
+						print(f'"Correct!"')
+					else:
+						print(f'"Wrong!"\nA gun comes out of the wall and shoots you doing 3 points of damage')
+						health = health -3
+						if health <= 0:
+							print(f'The computer shot you doing 3 points of damage killing you')
+							print("					YOU DIED")
+							print("				Better luck next time!")
+							break
+					decision = input(f'"Final question: Which planet is closest to the sun"\n')
+					if decision == "mercury":
+						print(f'"Correct!"')
+					else:
+						print(f'"Wrong!"\nA gun comes out of the wall and shoots you doing 3 points of damage')
+						health = health -3
+						if health <= 0:
+							print(f'The computer shot you doing 3 points of damage killing you')
+							print("					YOU DIED")
+							print("				Better luck next time!")
+							break
+					print(f'"You finished my trivia! I will let you go now"\nA door opens letting you out of the room\nYour health currently is {health} points\nWhen you exit the room there is a window that you look out of to see the spaceship speeding towards a planet\nYou have to escape the ship now or you die.')
 				elif decision == "right":
-					print(f"You enter the spaceships bridge")
+					print(f'You enter the spaceships bridge\nThere apears to be only one guy who is sitting in a chair\nHe gets up and looks strait into your eyes\nThis is gonna be a duel to the death and you have to be careful on how you proceed')
+					decision = input(f"You both have a hand on your gun\nIn order to shoot the guy you have to win a at least one coin flip out of two\nWhat is your guess?\n")
+					if decision == "heads":
+						decision = input(f"You get one more attempt\nWhat is your choice?\n")
+						if decision == "heads":
+							print(f"You both draw your blasters but he getss his out first and shoots you strait in the heart\n")
+							print(f'The captain shot you in the heart killing you')
+							print("					YOU DIED")
+							print("				Better luck next time!")
+							break
+						elif decision == "tails":
+							print(f"You both draw your blasters and you are able to shoot him before he shoots you")
+					elif decision == "tails":
+						decision = input(f"You get one more attempt\nWhat is your choice?\n")
+						print(f"You both draw your blasters and you are able to shoot him before he shoots you")
+					print(f"The captain you just shot sits there on the floor and you can tell he is dead\nYou see a beeping red light on a control pannel and out side the window you see the ship heading strait for a planet.\nYou have to escape the ship now or you die.")
 				elif decision == "left":
-					print(f"You enter the training are")
-			break
+					print(f"You enter the training area\nYou see a large empty space with targets all around you and a loud voice starts speeking over the speakers")
+					print(f'The speakers announce "there is a prisoner in the training room! Units 501 get in there and take him out"\nFor a second there is peace until 3 soldiers barge into the room blasters drawn')
+					decision = input(f'You pull out you blaster as well and can point it at any of the 3 guards\nOne might be the captain of this unit and taking him out might get the rest to leave\nWhich guard do you shoot 1, 2 or 3?')
+					if decision == "3":
+						print(f'You take a shot at the 3rd guard and he falls to the ground\nThe other 2 guards look at each other and run out of the room in a panic\nYou must have shot the captain')
+
 		if home == "leaderboard":
 			print(f"\tLeaderboard:\nTop score:{score}\nLowest score:{scorelow}\n")
 		else:
