@@ -1,31 +1,31 @@
 import random
 def main():
-	score = 0
-	scorelow = 0
-	choice1 = []
-	decision = []
-	guard2 = 5
-	inventory = []
-	Cafeteriadone = 0
-	Weaponrydone = 0
-	health = 20
 	print("\n\tWelcome to: Luna\nThe space pirate adventure game\n\n\n")
 	home = 'home'
 	while home != "quit":
 		home = input(f'Type "quit" to quit the game\nType "start" to start the game\nType "leaderboard" to see the leaderboard\n')
 		if home == "start":
 			print(f"\nWelcome to the luna\n\n")
+			floor_1()
+		else:
+			print(f"unkown request")
+def floor_1():
+			decision = []
+			inventory = []
+			health = 20
+			Weaponrydone = 0
+			Cafeteriadone = 0
 			print(f"Your adventure starts in a prison cell, you apear to be in a spaceship prison.\nYou see other cells with nobody in them and a gaurd asleep, holding a key.\nIt apears that the cell you are in is unlocked.")
-			while choice1 != "leave":
-				choice1 = input(f'Type "leave" to leave the cell and explore the ship, type "stay" to stay in your cell.\n')
-				if choice1 == "stay":
+			while decision != "leave":
+				decision = input(f'Type "leave" to leave the cell and explore the ship, type "stay" to stay in your cell.\n')
+				if decision == "stay":
 					print(f"You stay in your prison cell.")
 			print(f'you leave your cell and are standing in a hallway with a door at the end of it and multiple other cells.')
 			while decision != "steal":
-				decision = input(f'You see the guard with a key, type "steal" to steal the key\n')
+				decision = input(f'You see the guard with a bag of chips, type "steal" to steal the bag of chips\n')
 				if decision == "steal":
 					print(f"You take the key.")
-					inventory += ["Key"]
+					inventory += ["bag of chips"]
 					print(f"Your inventory is now:")
 					inv = ''
 					for thing in inventory:
@@ -114,6 +114,7 @@ def main():
 					if decision == "elevator":
 						if "Elevator key" in inventory:
 							print(f"You go into the elevator")
+
 						else:
 							print(f"You do not have an elevator key to go in.")
 							decision = "Nothing"
@@ -172,7 +173,9 @@ def main():
 					else:
 						print(f"unkown request")
 			decision = ''
-			while decision != "elevator":
+			floor_2(health, decision, inventory)
+def floor_2(health, decision, inventory):
+				guard2 = 5
 				print(f'You step out onto the second floor of the ship and immediantly there are two guards at the doorway who grab you.\nOne of the guards says "where do you think youre going bucko?"\nAs they are carying you down a hall one of them slips on a banna peel somebody must have left on the floor.\nYou break free from the guards grip.')
 				decision = input(f'You draw your blaster and look at the guard standing up.\nType "shoot" to shoot at the guard standing up.\n')
 				while guard2 >= 0:
@@ -196,22 +199,27 @@ def main():
 					guard2 -= damage
 				print(f"Now that both guards are on the ground you can make a break for it back onto the elevator\nYou see the elevator door closing as you run towards it\nBefore you can get into the elevator the doors close and three more guards run up behind you.")
 				print(f'This time the guards wont let you go so easily\nBefore you can do anything a guard comes up behind you and knocks you out.\n\n\n\n')
-				decision = input(f'You wake up in a new cell on a different floor except this time the door is locked.\nType "open" to try and open the door\nType "shoot" to try and shoot the door open\n')
-				if decision == "open":
-					print(f"You manage to get the door open despite it being locked and enter a long hallway")
-				elif decision == "shoot":
-					print(f'You blast open the door with a loud "bang" and for a second\nYou think you are fine but then 5 guards come running to your door and unload on you\n')
-					Ratta_shooty = random.randint(1,6)
-					total = Ratta_shooty * 5
-					health = health - total
-					if health <= 0:
-						print(f'The guards do {total} points of damage killing you')
-						print("					YOU DIED")
-						print("				Better luck next time!")
-						break
-					else:
-						print(f"The guards do {total} points of damage of damage getting your health down to {health}\nSomehow they dont kill you and you unload with your gun killing each guard\ncongrats you arent dead YET")
-				decision = input(f'When you enter the hall you have 3 options\nGo strait into a room\nGo right into the spaceships bridge\nOr go left into large training area\nType "left" "right" or "strait"\n')
+				floor_3(health, inventory, decision)
+				decision = ''
+def floor_3(health, inventory, decision):
+		key = ''
+		captain = ''
+		while captain != "0":
+			decision = input(f'You wake up in a new cell on a different floor except this time the door is locked.\nType "open" to try and open the door\nType "shoot" to try and shoot the door open\n')
+			if decision == "open":
+				print(f"You manage to get the door open despite it being locked and enter a long hallway")
+			elif decision == "shoot":
+				print(f'You blast open the door with a loud "bang" and for a second\nYou think you are fine but then 5 guards come running to your door and unload on you\n')
+				Ratta_shooty = random.randint(1,6)
+				total = Ratta_shooty * 5
+				health = health - total
+				if health <= 0:
+					death()
+					break
+				else:
+					print(f"The guards do {total} points of damage of damage getting your health down to {health}\nSomehow they dont kill you and you unload with your gun killing each guard\ncongrats you arent dead YET")
+			decision = input(f'When you enter the hall you have 3 options\nGo strait into a room\nGo right into the spaceships bridge\nOr go left into large training area\nType "left" "right" or "strait"\n')
+			while decision != 'done':
 				if decision == "strait":
 					print(f"You enter the room strait ahead of you\nIn this room there is a massive screen that apears to be turned off\nThe door slams shut behind you and the screen turns on")
 					decision = input(f'The screen turns on with a loud voice to greet you\nIt says "Hello player welcome to space trivia, would you like to play?"\nType "yes" to play or "no" to not play\n')
@@ -223,9 +231,7 @@ def main():
 							print(f'This time a gun comes out of the wall and shoots you doing 3 points of damge\nThe voice says "sorry not sorry"')
 							health = health -3
 							if health <= 0:
-								print(f'The computer shot you doing 3 points of damage killing you')
-								print("					YOU DIED")
-								print("				Better luck next time!")
+								death()
 								break
 					print(f'The computer says "Im so glad you decided to play"\n"Lets get started"')
 					decision = input(f'"There will be 3 trivia questions each time you get one wrong I will punish you"\n"First question: How many moons does earth have?"\n')
@@ -235,9 +241,7 @@ def main():
 						print(f'"Wrong!"\nA gun comes out of the wall and shoots you doing 3 points of damage')
 						health = health -3
 						if health <= 0:
-							print(f'The computer shot you doing 3 points of damage killing you')
-							print("					YOU DIED")
-							print("				Better luck next time!")
+							death()
 							break
 					decision = input(f'"Second question: How many planets are there in our solar system?"\n')
 					if decision == "8":
@@ -246,9 +250,7 @@ def main():
 						print(f'"Wrong!"\nA gun comes out of the wall and shoots you doing 3 points of damage')
 						health = health -3
 						if health <= 0:
-							print(f'The computer shot you doing 3 points of damage killing you')
-							print("					YOU DIED")
-							print("				Better luck next time!")
+							death()
 							break
 					decision = input(f'"Final question: Which planet is closest to the sun"\n')
 					if decision == "mercury":
@@ -257,36 +259,55 @@ def main():
 						print(f'"Wrong!"\nA gun comes out of the wall and shoots you doing 3 points of damage')
 						health = health -3
 						if health <= 0:
-							print(f'The computer shot you doing 3 points of damage killing you')
-							print("					YOU DIED")
-							print("				Better luck next time!")
+							death()
 							break
-					print(f'"You finished my trivia! I will let you go now"\nA door opens letting you out of the room\nYour health currently is {health} points\nWhen you exit the room there is a window that you look out of to see the spaceship speeding towards a planet\nYou have to escape the ship now or you die.')
-				elif decision == "right":
+					print(f'"You finished my trivia! I will let you go now"\nA door opens letting you out of the room\nYour health currently is {health} points')
+				elif decision == "right" and key in inventory:
 					print(f'You enter the spaceships bridge\nThere apears to be only one guy who is sitting in a chair\nHe gets up and looks strait into your eyes\nThis is gonna be a duel to the death and you have to be careful on how you proceed')
 					decision = input(f"You both have a hand on your gun\nIn order to shoot the guy you have to win a at least one coin flip out of two\nWhat is your guess?\n")
 					if decision == "heads":
 						decision = input(f"You get one more attempt\nWhat is your choice?\n")
 						if decision == "heads":
 							print(f"You both draw your blasters but he getss his out first and shoots you strait in the heart\n")
-							print(f'The captain shot you in the heart killing you')
-							print("					YOU DIED")
-							print("				Better luck next time!")
-							break
+							health = health - 20
+							if health <= 0:
+								death()
+								break
 						elif decision == "tails":
 							print(f"You both draw your blasters and you are able to shoot him before he shoots you")
 					elif decision == "tails":
 						decision = input(f"You get one more attempt\nWhat is your choice?\n")
 						print(f"You both draw your blasters and you are able to shoot him before he shoots you")
 					print(f"The captain you just shot sits there on the floor and you can tell he is dead\nYou see a beeping red light on a control pannel and out side the window you see the ship heading strait for a planet.\nYou have to escape the ship now or you die.")
+				elif decision == "right" and key not in inventory:
+					print(f"You must have a key to enter this room")
 				elif decision == "left":
 					print(f"You enter the training area\nYou see a large empty space with targets all around you and a loud voice starts speeking over the speakers")
 					print(f'The speakers announce "there is a prisoner in the training room! Units 501 get in there and take him out"\nFor a second there is peace until 3 soldiers barge into the room blasters drawn')
-					decision = input(f'You pull out you blaster as well and can point it at any of the 3 guards\nOne might be the captain of this unit and taking him out might get the rest to leave\nWhich guard do you shoot 1, 2 or 3?')
+					decision = input(f'You pull out you blaster as well and can point it at any of the 3 guards\nOne might be the captain of this unit and taking him out might get the rest to leave\nWhich guard do you shoot 1, 2 or 3?\n')
 					if decision == "3":
-						print(f'You take a shot at the 3rd guard and he falls to the ground\nThe other 2 guards look at each other and run out of the room in a panic\nYou must have shot the captain')
-
-		if home == "leaderboard":
-			print(f"\tLeaderboard:\nTop score:{score}\nLowest score:{scorelow}\n")
-		else:
-			print(f"unkown request")
+						print(f'You take a shot at the 3rd guard and he falls to the ground\nThe other 2 guards look at each other and run out of the room in a panic\nYou must have shot the captain\nYou check his pockets and find a key that he was holding')
+						inventory += ["key"]
+						print(f"Your inventory is now:")
+						inv = ''
+						for thing in inventory:
+							inv += thing
+						print(inv)
+					elif decision == "2" or "3":
+						print(f'You take a shot at the guard and he falls to the ground\nThe 3rd guard lookes at you and says "You killed Bob, You will pay for that"\nHe and the other guard open fire on you and does 5 points of damage')
+						health = health - 5
+						if health <= 0:
+							death()
+							break
+						print(f'You take a shot at the 3rd guard ths time and he falls to the ground\nThe other guard runs out of the room in a panic\nYou must have shot the captain\nYou check his pockets and find a key that he was holding')
+						inventory += ["key"]
+						print(f"Your inventory is now:")
+						inv = ''
+						for thing in inventory:
+							inv += f"{thing}\n"
+						print(inv)
+				decision = input(f'You still have three options\nGo right into the spaceships bridge\nOr go left into large training area\nType "left" "right" or "strait"\n')
+def death():
+	print(f'your health got below 0')
+	print("					YOU DIED")
+	print("				Better luck next time!")
