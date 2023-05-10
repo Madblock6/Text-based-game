@@ -6,13 +6,13 @@ def main():
 		home = input(f'Type "quit" to quit the game\nType "start" to start the game\nType "leaderboard" to see the leaderboard\n')
 		if home == "start":
 			print(f"\nWelcome to the luna\n\n")
-			floor_1()
+			health = 20
+			floor_1(health)
 		else:
 			print(f"unkown request")
-def floor_1():
+def floor_1(health):
 			decision = []
 			inventory = []
-			health = 20
 			Weaponrydone = 0
 			Cafeteriadone = 0
 			print(f"Your adventure starts in a prison cell, you apear to be in a spaceship prison.\nYou see other cells with nobody in them and a gaurd asleep, holding a key.\nIt apears that the cell you are in is unlocked.")
@@ -203,8 +203,11 @@ def floor_2(health, decision, inventory):
 				decision = ''
 def floor_3(health, inventory, decision):
 		key = ''
-		captain = ''
-		while captain != "0":
+		key_in_inventory = 0
+		test = ""
+		while health != 0:
+			if health <= 0:
+				break
 			decision = input(f'You wake up in a new cell on a different floor except this time the door is locked.\nType "open" to try and open the door\nType "shoot" to try and shoot the door open\n')
 			if decision == "open":
 				print(f"You manage to get the door open despite it being locked and enter a long hallway")
@@ -216,23 +219,30 @@ def floor_3(health, inventory, decision):
 				if health <= 0:
 					death()
 					break
+					main()
 				else:
 					print(f"The guards do {total} points of damage of damage getting your health down to {health}\nSomehow they dont kill you and you unload with your gun killing each guard\ncongrats you arent dead YET")
 			decision = input(f'When you enter the hall you have 3 options\nGo strait into a room\nGo right into the spaceships bridge\nOr go left into large training area\nType "left" "right" or "strait"\n')
 			while decision != 'done':
+				if health <= 0:
+					break
 				if decision == "strait":
 					print(f"You enter the room strait ahead of you\nIn this room there is a massive screen that apears to be turned off\nThe door slams shut behind you and the screen turns on")
 					decision = input(f'The screen turns on with a loud voice to greet you\nIt says "Hello player welcome to space trivia, would you like to play?"\nType "yes" to play or "no" to not play\n')
-					while decision != "yes":
+					if decision == "yes":
+						continue
+					else:
 						decision = input(f"Are you sure?\nThere will be consequences if you say no again!\n")
 						if decision == "yes":
 							continue
 						else:
 							print(f'This time a gun comes out of the wall and shoots you doing 3 points of damge\nThe voice says "sorry not sorry"')
-							health = health -3
+							health = health -20
 							if health <= 0:
 								death()
+								health_fix(health)
 								break
+								main()
 					print(f'The computer says "Im so glad you decided to play"\n"Lets get started"')
 					decision = input(f'"There will be 3 trivia questions each time you get one wrong I will punish you"\n"First question: How many moons does earth have?"\n')
 					if decision == "1":
@@ -242,7 +252,9 @@ def floor_3(health, inventory, decision):
 						health = health -3
 						if health <= 0:
 							death()
+							health_fix(health)
 							break
+							main()
 					decision = input(f'"Second question: How many planets are there in our solar system?"\n')
 					if decision == "8":
 						print(f'"Correct!"')
@@ -251,7 +263,9 @@ def floor_3(health, inventory, decision):
 						health = health -3
 						if health <= 0:
 							death()
+							health_fix(health)
 							break
+							main()
 					decision = input(f'"Final question: Which planet is closest to the sun"\n')
 					if decision == "mercury":
 						print(f'"Correct!"')
@@ -260,9 +274,11 @@ def floor_3(health, inventory, decision):
 						health = health -3
 						if health <= 0:
 							death()
+							health_fix(health)
 							break
+							main()
 					print(f'"You finished my trivia! I will let you go now"\nA door opens letting you out of the room\nYour health currently is {health} points')
-				elif decision == "right" and key in inventory:
+				elif decision == "right" and key_in_inventory == 1:
 					print(f'You enter the spaceships bridge\nThere apears to be only one guy who is sitting in a chair\nHe gets up and looks strait into your eyes\nThis is gonna be a duel to the death and you have to be careful on how you proceed')
 					decision = input(f"You both have a hand on your gun\nIn order to shoot the guy you have to win a at least one coin flip out of two\nWhat is your guess?\n")
 					if decision == "heads":
@@ -272,16 +288,20 @@ def floor_3(health, inventory, decision):
 							health = health - 20
 							if health <= 0:
 								death()
+								health_fix(health)
 								break
+								main()
 						elif decision == "tails":
 							print(f"You both draw your blasters and you are able to shoot him before he shoots you")
 					elif decision == "tails":
 						decision = input(f"You get one more attempt\nWhat is your choice?\n")
 						print(f"You both draw your blasters and you are able to shoot him before he shoots you")
 					print(f"The captain you just shot sits there on the floor and you can tell he is dead\nYou see a beeping red light on a control pannel and out side the window you see the ship heading strait for a planet.\nYou have to escape the ship now or you die.")
-				elif decision == "right" and key not in inventory:
+					floor_4(health, inventory, decision)
+				elif decision == "right" and key_in_inventory == 0:
 					print(f"You must have a key to enter this room")
 				elif decision == "left":
+					key_in_inventory = 1
 					print(f"You enter the training area\nYou see a large empty space with targets all around you and a loud voice starts speeking over the speakers")
 					print(f'The speakers announce "there is a prisoner in the training room! Units 501 get in there and take him out"\nFor a second there is peace until 3 soldiers barge into the room blasters drawn')
 					decision = input(f'You pull out you blaster as well and can point it at any of the 3 guards\nOne might be the captain of this unit and taking him out might get the rest to leave\nWhich guard do you shoot 1, 2 or 3?\n')
@@ -291,14 +311,16 @@ def floor_3(health, inventory, decision):
 						print(f"Your inventory is now:")
 						inv = ''
 						for thing in inventory:
-							inv += thing
+							inv += f"{thing}\n"
 						print(inv)
 					elif decision == "2" or "3":
 						print(f'You take a shot at the guard and he falls to the ground\nThe 3rd guard lookes at you and says "You killed Bob, You will pay for that"\nHe and the other guard open fire on you and does 5 points of damage')
 						health = health - 5
 						if health <= 0:
 							death()
+							health_fix(health)
 							break
+							main()
 						print(f'You take a shot at the 3rd guard ths time and he falls to the ground\nThe other guard runs out of the room in a panic\nYou must have shot the captain\nYou check his pockets and find a key that he was holding')
 						inventory += ["key"]
 						print(f"Your inventory is now:")
@@ -307,7 +329,16 @@ def floor_3(health, inventory, decision):
 							inv += f"{thing}\n"
 						print(inv)
 				decision = input(f'You still have three options\nGo right into the spaceships bridge\nOr go left into large training area\nType "left" "right" or "strait"\n')
+def floor_4(health, inventory, decision):
+	decision = ""
+	print(f'You run out of the room and hall and manage to make your way back onto an elevator\nWhen the door opens to the hanger you see a larger man guarding the last space ship out\nHe looks at you and says "You are the one who caused all of the trouble, this is going to be fun"\n')
+	decision = input(f'The man pulls out a lightsaber and jumps towards you with downwards swing\nYou can either Jump by typing "j"\nDuck by typing "d"\nRoll to the right by typing "r"\nOr roll to the left by typing "l"\n')
+	if decision == "l" or "r":
+		decision = input(f"You jump out of the way of his swing and have a chance to take a shot at him\nYou blast him in the leg and deal 5 points of damage to him\n")
 def death():
 	print(f'your health got below 0')
 	print("					YOU DIED")
 	print("				Better luck next time!")
+def health_fix(health):
+	if health < 0:
+		health = health + (-health)
