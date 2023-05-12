@@ -342,9 +342,9 @@ def floor_3(health, inventory, decision):
 def floor_4(health, inventory, decision):
 	Final_Boss = 15
 	decision = ""
+	print(f'You run out of the room and hall and manage to make your way back onto an elevator\nWhen the door opens to the hanger you see a larger man guarding the last space ship out\nHe looks at you and says "You are the one who caused all of the trouble, this is going to be fun"\nThe man pulls out a lightsaber\n')
 	while health != 0:
-		print(f'You run out of the room and hall and manage to make your way back onto an elevator\nWhen the door opens to the hanger you see a larger man guarding the last space ship out\nHe looks at you and says "You are the one who caused all of the trouble, this is going to be fun"\n')
-		decision = input(f'The man pulls out a lightsaber and jumps towards you with downwards swing\nYou can either Jump by typing "j"\nDuck by typing "d"\nRoll to the right by typing "r"\nOr roll to the left by typing "l"\n').lower()
+		decision = input(f'The man jumps towards you with a downwards swing\nYou can either Jump by typing "j"\nDuck by typing "d"\nRoll to the right by typing "r"\nOr roll to the left by typing "l"\n').lower()
 		if decision == "l" or decision == "r":
 			Final_Boss = Final_Boss - 5
 			print(f'You jump out of the way of his swing and have a chance to take a shot at him\nYou blast him in the leg and deal 5 points of damage to him\nHis health is now {Final_Boss}\nHe glances at you and says "Dont try that agian or ill take your head off"')
