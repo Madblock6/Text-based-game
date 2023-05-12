@@ -200,16 +200,15 @@ def floor_2(health, decision, inventory):
 					guard2 -= damage
 				print(f"Now that both guards are on the ground you can make a break for it back onto the elevator\nYou see the elevator door closing as you run towards it\nBefore you can get into the elevator the doors close and three more guards run up behind you.")
 				print(f'This time the guards wont let you go so easily\nBefore you can do anything a guard comes up behind you and knocks you out.\n\n\n\n')
-				floor_3(health, inventory, decision, Final_Boss)
+				floor_3(health, inventory, decision)
 				decision = ''
-def floor_3(health, inventory, decision, Final_Boss):
+def floor_3(health, inventory, decision):
 		key = ''
 		key_in_inventory = 0
 		test = ""
+		test_2 = ""
 		while health != 0:
 			if health <= 0:
-				break
-			if Final_Boss == 0:
 				break
 			decision = input(f'You wake up in a new cell on a different floor except this time the door is locked.\nType "open" to try and open the door\nType "shoot" to try and shoot the door open\n')
 			if decision == "open":
@@ -240,7 +239,7 @@ def floor_3(health, inventory, decision, Final_Boss):
 						if decision == "yes":
 							continue
 						else:
-							print(f'This time a gun comes out of the wall and shoots you doing 3 points of damge\nThe voice says "sorry not sorry"')
+							print(f'This time a gun comes out of the wall and shoots you doing 3 points of damage\nThe voice says "sorry not sorry"')
 							health = health -3
 							if health <= 0:
 								death()
@@ -283,25 +282,7 @@ def floor_3(health, inventory, decision, Final_Boss):
 							main()
 					print(f'"You finished my trivia! I will let you go now"\nA door opens letting you out of the room\nYour health currently is {health} points')
 				elif decision == "right" and key_in_inventory == 1:
-					print(f'You enter the spaceships bridge\nThere apears to be only one guy who is sitting in a chair\nHe gets up and looks strait into your eyes\nThis is gonna be a duel to the death and you have to be careful on how you proceed')
-					decision = input(f"You both have a hand on your gun\nIn order to shoot the guy you have to win a at least one coin flip out of two\nWhat is your guess?\n")
-					if decision == "heads":
-						decision = input(f"You get one more attempt\nWhat is your choice?\n")
-						if decision == "heads":
-							print(f"You both draw your blasters but he getss his out first and shoots you strait in the heart\n")
-							health = health - 20
-							if health <= 0:
-								death()
-								health_fix(health)
-								break
-								main()
-						elif decision == "tails":
-							print(f"You both draw your blasters and you are able to shoot him before he shoots you")
-					elif decision == "tails":
-						decision = input(f"You get one more attempt\nWhat is your choice?\n")
-						print(f"You both draw your blasters and you are able to shoot him before he shoots you")
-					print(f"The captain you just shot sits there on the floor and you can tell he is dead\nYou see a beeping red light on a control pannel and out side the window you see the ship heading strait for a planet.\nYou have to escape the ship now or you die.")
-					floor_4(health, inventory, decision)
+					test_2 = 1
 					break
 				elif decision == "right" and key_in_inventory == 0:
 					print(f"You must have a key to enter this room")
@@ -334,21 +315,46 @@ def floor_3(health, inventory, decision, Final_Boss):
 							inv += f"{thing}\n"
 						print(inv)
 				test_1 = 0
+			if test_2 == 1:
+				print(f'You enter the spaceships bridge\nThere apears to be only one guy who is sitting in a chair\nHe gets up and looks strait into your eyes\nThis is gonna be a duel to the death and you have to be careful on how you proceed')
+				decision = input(f"You both have a hand on your gun\nIn order to shoot the guy you have to win a at least one coin flip out of two\nWhat is your guess?\n")
+				if decision == "heads":
+					decision = input(f"You get one more attempt\nWhat is your choice?\n")
+					if decision == "heads":
+						print(f"You both draw your blasters but he getss his out first and shoots you strait in the heart\n")
+						health = health - 20
+						if health <= 0:
+							death()
+							health_fix(health)
+							break
+							main()
+					elif decision == "tails":
+						print(f"You both draw your blasters and you are able to shoot him before he shoots you")
+				elif decision == "tails":
+					decision = input(f"You get one more attempt\nWhat is your choice?\n")
+					print(f"You both draw your blasters and you are able to shoot him before he shoots you")
+				print(f"The captain you just shot sits there on the floor and you can tell he is dead\nYou see a beeping red light on a control pannel and out side the window you see the ship heading strait for a planet.\nYou have to escape the ship now or you die.")
+				floor_4(health, inventory, decision)
+				break
 def floor_4(health, inventory, decision):
 	Final_Boss = 15
 	decision = ""
 	print(f'You run out of the room and hall and manage to make your way back onto an elevator\nWhen the door opens to the hanger you see a larger man guarding the last space ship out\nHe looks at you and says "You are the one who caused all of the trouble, this is going to be fun"\n')
 	decision = input(f'The man pulls out a lightsaber and jumps towards you with downwards swing\nYou can either Jump by typing "j"\nDuck by typing "d"\nRoll to the right by typing "r"\nOr roll to the left by typing "l"\n').lower
-	if decision == "l" or "r":
-		Final_Boss = Final_Boss - 5
-		print(f'You jump out of the way of his swing and have a chance to take a shot at him\nYou blast him in the leg and deal 5 points of damage to him\nHis health is now {Final_Boss}\nHe glances at you and says "Dont try that agian or ill take your head off"')
-	elif decision == "j" or "d":
-		health = health - 5
-		print(f'You try and get out of the way of his saber but end up getting hit in the process\nWith a striking blow he does 5 points of damage to you\nYour health is now {health}\nHe glances at you and says "Move out of the way or you will be hit with my blade"')
-		if health <= 0:
-			death()
-			health_fix(health)
-			main()
+	while decision != "done":
+		if decision == "l" or "r":
+			Final_Boss = Final_Boss - 5
+			print(f'You jump out of the way of his swing and have a chance to take a shot at him\nYou blast him in the leg and deal 5 points of damage to him\nHis health is now {Final_Boss}\nHe glances at you and says "Dont try that agian or ill take your head off"')
+			decision = "done"
+		elif decision == "j" or "d":
+			health = health - 5
+			print(f'You try and get out of the way of his saber but end up getting hit in the process\nWith a striking blow he does 5 points of damage to you\nYour health is now {health}\nHe glances at you and says "Move out of the way or you will be hit with my blade"')
+			if health <= 0:
+				death()
+				health_fix(health)
+				break
+				main()
+			decision = "done"
 	print(f"You are quite the tough bugger to have gotten this far\nBut ill make this quick\nThis time he throws a grenade strait underneath you")
 	decision = input(f'You can either try to toss the grenade back by typing "t"\nJump out of the way by typing "j"\nOr Dive out of the way by typing "d"\n').lower
 	if decision == "t":
@@ -374,8 +380,8 @@ def floor_4(health, inventory, decision):
 			death()
 			health_fix(health)
 			main()
-	print(f"He stumbles after the swing and falls out of the spaceship through a the hanger window and is gone\nCongrats you beat the final boss!\nThe story comes to a close with you getting on a spaceship were fly back to earth\nNobody else knows about what happened on that ship but you will always remember that adventure")
-	Final_Boss = 0
+	print(f"He stumbles after the swing and falls out of the spaceship through a the hanger window and is gone\nCongrats you beat the final boss!\nThe story comes to a close with you getting on a spaceship and fly back to earth\nNobody else knows about what happened on that ship but you will always remember that adventure")
+	health = 0
 	main()
 def death():
 	print(f'your health got below 0')
