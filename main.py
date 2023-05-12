@@ -383,6 +383,7 @@ def floor_4(health, inventory, decision):
 				health_fix(health)
 				break
 				main()
+		break
 	print(f"He stumbles after the swing and falls out of the spaceship through a the hanger window and is gone\nCongrats you beat the final boss!\nThe story comes to a close with you getting on a spaceship and fly back to earth\nNobody else knows about what happened on that ship but you will always remember that adventure")
 	health = 0
 	main()
